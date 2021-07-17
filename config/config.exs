@@ -18,6 +18,12 @@ config :vssoccer_api, VssoccerApiWeb.Endpoint,
   pubsub_server: VssoccerApi.PubSub,
   live_view: [signing_salt: "n0Sef6tw"]
 
+# Phauxth authentication configuration
+config :phauxth,
+  user_context: VssoccerApi.Accounts,
+  crypto_module: Argon2,
+  token_module: VssoccerApiWeb.Auth.Token
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

@@ -3,9 +3,10 @@ use Mix.Config
 # Configure your database
 config :vssoccer_api, VssoccerApi.Repo,
   username: "postgres",
-  password: "postgres",
-  database: "vssoccer_api_dev",
+  password: "admin",
+  database: "vssoccer_local",
   hostname: "localhost",
+  port: 15432,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
