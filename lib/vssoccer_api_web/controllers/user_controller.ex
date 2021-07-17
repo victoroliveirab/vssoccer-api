@@ -9,14 +9,7 @@ defmodule VssoccerApiWeb.UserController do
   action_fallback VssoccerApiWeb.FallbackController
 
   # the following plugs are defined in the controllers/authorize.ex file
-  plug :user_check when action in [:index, :show]
-  plug :id_check when action in [:update, :delete]
-
-  def index(conn, _) do
-    IO.inspect(conn.assigns)
-    users = Accounts.list_users()
-    render(conn, "index.json", users: users)
-  end
+  plug :id_check when action in [:show, :update, :delete]
 
   def create(conn, %{"user" => user_params}) do
     with {:ok, user} <- Accounts.create_user(user_params) do
@@ -28,8 +21,7 @@ defmodule VssoccerApiWeb.UserController do
     end
   end
 
-  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
-    user = if id == to_string(user.id), do: user, else: Accounts.get_user!(id)
+  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, _params) do
     render(conn, "show.json", user: user)
   end
 

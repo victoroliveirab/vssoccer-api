@@ -10,6 +10,6 @@ defmodule VssoccerApiWeb.Router do
     pipe_through :api
 
     post "/sessions", SessionController, :create
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit, :index]
   end
 end
