@@ -1,9 +1,12 @@
-defmodule VssoccerApi.Sessions.Session do
+defmodule VssoccerApi.Models.Session do
+  @moduledoc """
+  Model Session.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
 
-  alias VssoccerApi.Accounts.User
+  alias VssoccerApi.Models.User
 
   @max_age 86_400
 

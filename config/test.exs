@@ -7,9 +7,10 @@ use Mix.Config
 # Run `mix help test` for more information.
 config :vssoccer_api, VssoccerApi.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "admin",
   database: "vssoccer_api_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
+  port: 15432,
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,

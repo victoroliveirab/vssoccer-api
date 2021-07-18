@@ -20,7 +20,7 @@ config :vssoccer_api, VssoccerApiWeb.Endpoint,
 
 # Phauxth authentication configuration
 config :phauxth,
-  user_context: VssoccerApi.Accounts,
+  user_context: VssoccerApi.Actions.Users,
   crypto_module: Argon2,
   token_module: VssoccerApiWeb.Auth.Token
 

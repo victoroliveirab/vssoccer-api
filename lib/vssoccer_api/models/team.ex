@@ -1,7 +1,12 @@
-defmodule VssoccerApi.Teams.Team do
+defmodule VssoccerApi.Models.Team do
+  @moduledoc """
+  Model Team.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
+
+  alias VssoccerApi.Models.Profile
 
   @required_params [:api_id, :name]
 
@@ -9,6 +14,8 @@ defmodule VssoccerApi.Teams.Team do
     field :api_id, :integer
     field :name, :string
     field :logo, :string
+
+    belongs_to :profile, Profile
   end
 
   def changeset(attrs) do

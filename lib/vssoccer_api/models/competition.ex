@@ -1,9 +1,12 @@
-defmodule VssoccerApi.Competitions.Competition do
+defmodule VssoccerApi.Models.Competition do
+  @moduledoc """
+  Model Competition.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
 
-  alias VssoccerApi.Countries.Country
+  alias VssoccerApi.Models.Country
 
   @required_params [:api_id, :name, :country_id]
 

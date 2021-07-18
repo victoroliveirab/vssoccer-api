@@ -1,11 +1,12 @@
-defmodule VssoccerApi.SessionsTest do
+defmodule VssoccerApi.SessionTest do
   use VssoccerApi.DataCase
 
-  alias VssoccerApi.{Accounts, Sessions, Sessions.Session}
+  alias VssoccerApi.Actions.{Sessions, Users}
+  alias VssoccerApi.Models.{Session, User}
 
   setup do
     attrs = %{email: "fred@example.com", password: "reallyHard2gue$$"}
-    {:ok, user} = Accounts.create_user(attrs)
+    {:ok, user} = Users.create(attrs)
     {:ok, user: user}
   end
 
@@ -36,7 +37,7 @@ defmodule VssoccerApi.SessionsTest do
       create_attrs = %{user_id: user.id}
       assert {:ok, %Session{} = session} = Sessions.create_session(create_attrs)
       assert session.user_id == user.id
-      assert DateTime.diff(session.expires_at, DateTime.utc_now()) == 86400
+      assert DateTime.diff(session.expires_at, DateTime.utc_now()) == 86_400
     end
 
     test "create_session/1 with invalid data returns error changeset" do

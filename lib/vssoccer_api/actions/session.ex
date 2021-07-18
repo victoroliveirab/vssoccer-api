@@ -1,11 +1,11 @@
-defmodule VssoccerApi.Sessions do
+defmodule VssoccerApi.Actions.Sessions do
   @moduledoc """
-  The Sessions context.
+  Sessions' context.
   """
 
   import Ecto.Query, warn: false
 
-  alias VssoccerApi.{Accounts.User, Repo, Sessions.Session}
+  alias VssoccerApi.{Models.Session, Models.User, Repo}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -32,6 +32,7 @@ defmodule VssoccerApi.Sessions do
   """
   @spec create_session(map) :: {:ok, Session.t()} | changeset_error
   def create_session(attrs \\ %{}) do
+    IO.puts("Hello")
     %Session{} |> Session.changeset(attrs) |> Repo.insert()
   end
 

@@ -4,7 +4,7 @@ defmodule VssoccerApiWeb.SessionController do
   import VssoccerApiWeb.Authorize
 
   alias Phauxth.Login
-  alias VssoccerApi.Sessions
+  alias VssoccerApi.Actions.Sessions
   alias VssoccerApiWeb.Auth.Token
 
   # the following plug is defined in the controllers/authorize.ex file

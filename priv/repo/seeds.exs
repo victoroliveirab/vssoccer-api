@@ -11,5 +11,5 @@ users = [
 ]
 
 for user <- users do
-  {:ok, _} = VssoccerApi.Accounts.create_user(user)
+  {:ok, _} = VssoccerApi.Actions.Users.create(user)
 end

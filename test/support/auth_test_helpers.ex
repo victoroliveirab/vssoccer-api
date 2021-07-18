@@ -1,11 +1,12 @@
 defmodule VssoccerApiWeb.AuthTestHelpers do
   use Phoenix.ConnTest
-  alias VssoccerApi.{Accounts, Sessions}
+
+  alias VssoccerApi.Actions.{Sessions, Users}
   alias VssoccerApiWeb.Auth.Token
 
   def add_user(email) do
     user = %{email: email, password: "reallyHard2gue$$"}
-    {:ok, user} = Accounts.create_user(user)
+    {:ok, user} = Users.create(user)
     user
   end
 

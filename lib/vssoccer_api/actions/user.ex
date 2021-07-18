@@ -1,25 +1,27 @@
-defmodule VssoccerApi.Accounts do
+defmodule VssoccerApi.Actions.Users do
   @moduledoc """
-  The Accounts context.
+  Users' context.
   """
 
   import Ecto.Query, warn: false
 
-  alias VssoccerApi.{Accounts.User, Repo, Sessions, Sessions.Session}
+  alias VssoccerApi.Actions.Sessions
+  alias VssoccerApi.Models.{Session, User}
+  alias VssoccerApi.Repo
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
   Returns the list of users.
   """
-  @spec list_users() :: [User.t()]
-  def list_users, do: Repo.all(User)
+  @spec list() :: [User.t()]
+  def list, do: Repo.all(User)
 
   @doc """
   Gets a single user.
   """
-  @spec get_user!(integer) :: User.t() | no_return
-  def get_user!(id), do: Repo.get!(User, id)
+  @spec get!(integer) :: User.t() | no_return
+  def get!(id), do: Repo.get!(User, id)
 
   @doc """
   Gets a user based on the params.
@@ -39,8 +41,8 @@ defmodule VssoccerApi.Accounts do
   @doc """
   Creates a user.
   """
-  @spec create_user(map) :: {:ok, User.t()} | changeset_error
-  def create_user(attrs) do
+  @spec create(map) :: {:ok, User.t()} | changeset_error
+  def create(attrs) do
     %User{}
     |> User.create_changeset(attrs)
     |> Repo.insert()
@@ -49,8 +51,8 @@ defmodule VssoccerApi.Accounts do
   @doc """
   Updates a user.
   """
-  @spec update_user(User.t(), map) :: {:ok, User.t()} | changeset_error
-  def update_user(%User{} = user, attrs) do
+  @spec update(User.t(), map) :: {:ok, User.t()} | changeset_error
+  def update(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
     |> Repo.update()
@@ -59,16 +61,16 @@ defmodule VssoccerApi.Accounts do
   @doc """
   Deletes a user.
   """
-  @spec delete_user(User.t()) :: {:ok, User.t()} | changeset_error
-  def delete_user(%User{} = user) do
+  @spec delete(User.t()) :: {:ok, User.t()} | changeset_error
+  def delete(%User{} = user) do
     Repo.delete(user)
   end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
   """
-  @spec change_user(User.t()) :: Ecto.Changeset.t()
-  def change_user(%User{} = user) do
+  @spec change(User.t()) :: Ecto.Changeset.t()
+  def change(%User{} = user) do
     User.changeset(user, %{})
   end
 end

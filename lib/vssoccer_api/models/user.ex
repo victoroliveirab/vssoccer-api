@@ -1,9 +1,12 @@
-defmodule VssoccerApi.Accounts.User do
+defmodule VssoccerApi.Models.User do
+  @moduledoc """
+  Model User.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
 
-  alias VssoccerApi.Sessions.Session
+  alias VssoccerApi.Models.{Profile, Session}
 
   @type t :: %__MODULE__{
     id: integer,
@@ -18,7 +21,9 @@ defmodule VssoccerApi.Accounts.User do
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+
     has_many :sessions, Session, on_delete: :delete_all
+    has_one :profile, Profile
 
     timestamps()
   end

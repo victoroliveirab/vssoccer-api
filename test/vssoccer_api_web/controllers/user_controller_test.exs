@@ -3,7 +3,7 @@ defmodule VssoccerApiWeb.UserControllerTest do
 
   import VssoccerApiWeb.AuthTestHelpers
 
-  alias VssoccerApi.Accounts
+  alias VssoccerApi.Actions.Users
 
   @create_attrs %{email: "bill@example.com", password: "hard2guess"}
   @update_attrs %{email: "william@example.com"}
@@ -13,20 +13,6 @@ defmodule VssoccerApiWeb.UserControllerTest do
     {:ok, %{conn: conn}}
   end
 
-  describe "index" do
-    test "lists all entries on index", %{conn: conn} do
-      user = add_user("reg@example.com")
-      conn = conn |> add_token_conn(user)
-      conn = get(conn, Routes.user_path(conn, :index))
-      assert json_response(conn, 200)
-    end
-
-    test "renders /users error for nil user", %{conn: conn}  do
-      conn = get(conn, Routes.user_path(conn, :index))
-      assert json_response(conn, 401)
-    end
-  end
-
   describe "show user resource" do
     setup [:add_user_session]
 
@@ -34,19 +20,13 @@ defmodule VssoccerApiWeb.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert json_response(conn, 200)["data"] == %{"id" => user.id, "email" => "reg@example.com"}
     end
-
-    test "returns 404 when user not found", %{conn: conn} do
-      assert_error_sent 404, fn ->
-        get(conn, Routes.user_path(conn, :show, -1))
-      end
-    end
   end
 
   describe "create user" do
     test "creates user when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_by(%{"email" => "bill@example.com"})
+      assert Users.get_by(%{"email" => "bill@example.com"})
     end
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
@@ -61,7 +41,7 @@ defmodule VssoccerApiWeb.UserControllerTest do
     test "updates chosen user when data is valid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
       assert json_response(conn, 200)["data"]["id"] == user.id
-      updated_user = Accounts.get_user!(user.id)
+      updated_user = Users.get!(user.id)
       assert updated_user.email == "william@example.com"
     end
 
@@ -80,14 +60,14 @@ defmodule VssoccerApiWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert response(conn, 204)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
+      assert_raise Ecto.NoResultsError, fn -> Users.get!(user.id) end
     end
 
     test "cannot delete other user", %{conn: conn} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert json_response(conn, 403)["errors"]["detail"] =~ "not authorized"
-      assert Accounts.get_user!(other.id)
+      assert Users.get!(other.id)
     end
   end
 
