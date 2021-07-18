@@ -10,6 +10,15 @@ defmodule VssoccerApi.Models.Competition do
 
   @required_params [:api_id, :name, :country_id]
 
+  @type t :: %__MODULE__{
+    id: integer,
+    api_id: integer,
+    name: String.t(),
+    logo: String.t() | nil,
+    country_id: integer,
+    country: Country.t() | %Ecto.Association.NotLoaded{}
+  }
+
   schema "competitions" do
     field :api_id, :integer
     field :name, :string

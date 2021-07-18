@@ -10,6 +10,14 @@ defmodule VssoccerApi.Models.Team do
 
   @required_params [:api_id, :name]
 
+  @type t :: %__MODULE__{
+    id: integer,
+    api_id: integer,
+    name: String.t(),
+    logo: String.t() | nil,
+    profile: [Profile.t()] | %Ecto.Association.NotLoaded{}
+  }
+
   schema "teams" do
     field :api_id, :integer
     field :name, :string

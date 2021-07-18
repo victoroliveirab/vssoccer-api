@@ -13,6 +13,7 @@ defmodule VssoccerApi.Models.User do
     email: String.t(),
     password_hash: String.t(),
     sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
+    profile: Profile.t() | %Ecto.Association.NotLoaded{},
     inserted_at: DateTime.t(),
     updated_at: DateTime.t()
   }

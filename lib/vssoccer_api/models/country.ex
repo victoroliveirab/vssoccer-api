@@ -10,6 +10,14 @@ defmodule VssoccerApi.Models.Country do
 
   @required_params [:name]
 
+  @type t :: %__MODULE__{
+    id: integer,
+    name: String.t(),
+    flag: String.t() | nil,
+    competitions: [Competition.t()] | %Ecto.Association.NotLoaded{},
+    profiles: [Profile.t()] | %Ecto.Association.NotLoaded{},
+  }
+
   schema "countries" do
     field :name, :string
     field :flag, :string
