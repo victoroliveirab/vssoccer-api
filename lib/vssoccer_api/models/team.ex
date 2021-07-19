@@ -10,6 +10,8 @@ defmodule VssoccerApi.Models.Team do
 
   @required_params [:api_id, :name]
 
+  @derive {Jason.Encoder, only: [:id, :name, :logo]}
+
   @type t :: %__MODULE__{
     id: integer,
     api_id: integer,
@@ -23,7 +25,7 @@ defmodule VssoccerApi.Models.Team do
     field :name, :string
     field :logo, :string
 
-    belongs_to :profile, Profile
+    belongs_to :profile, Profile, define_field: :false
   end
 
   def changeset(attrs) do

@@ -13,5 +13,6 @@ defmodule VssoccerApiWeb.Router do
     resources "/users", UserController, except: [:new, :edit, :index]
     resources "/countries", CountryController, only: [:index, :show]
     resources "/competitions", CompetitionController, only: [:index, :show]
+    resources "/teams", TeamController, only: [:index, :show]
   end
 end
