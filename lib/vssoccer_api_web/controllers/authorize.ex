@@ -36,11 +36,26 @@ defmodule VssoccerApiWeb.Authorize do
   end
 
   @doc """
+  Plug to only allow authenticated users to access the resource
+  """
+
+  def logged_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(VssoccerApiWeb.AuthView)
+    |> render("logged_in.json", [])
+    |> halt()
+  end
+
+  def logged_check(%Plug.Conn{assigns: %{current_user: _current_user}} = conn, _opts), do: conn
+
+  @doc """
   Plug to only allow authenticated users with the correct id to access the resource.
 
   See the user controller for an example.
   """
   def id_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
+    IO.puts("here")
     error(conn, :unauthorized, 401)
   end
 
