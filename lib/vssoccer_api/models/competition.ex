@@ -10,6 +10,8 @@ defmodule VssoccerApi.Models.Competition do
 
   @required_params [:api_id, :name, :country_id]
 
+  @derive {Jason.Encoder, only: [:id, :name, :logo, :country_id]}
+
   @type t :: %__MODULE__{
     id: integer,
     api_id: integer,
