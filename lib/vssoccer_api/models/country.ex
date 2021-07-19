@@ -10,6 +10,8 @@ defmodule VssoccerApi.Models.Country do
 
   @required_params [:name]
 
+  @derive {Jason.Encoder, only: [:id, :name, :flag]}
+
   @type t :: %__MODULE__{
     id: integer,
     name: String.t(),

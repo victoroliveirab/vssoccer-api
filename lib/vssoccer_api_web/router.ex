@@ -11,5 +11,6 @@ defmodule VssoccerApiWeb.Router do
 
     post "/sessions", SessionController, :create
     resources "/users", UserController, except: [:new, :edit, :index]
+    resources "/countries", CountryController, only: [:index, :show]
   end
 end
