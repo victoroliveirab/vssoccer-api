@@ -4,7 +4,13 @@ defmodule VssoccerApi.Models.Profile do
   """
   use Ecto.Schema
 
-  alias VssoccerApi.Models.{Country, Team, User}
+  import Ecto.Changeset
+
+  alias VssoccerApi.Models.{Country, ProfileTeam, Team, User}
+
+  @required_params [:user_id, :country_id]
+
+  @derive {Jason.Encoder, only: [:id, :teams | @required_params]}
 
   @type t :: %__MODULE__{
     id: integer,
@@ -20,9 +26,16 @@ defmodule VssoccerApi.Models.Profile do
   schema "profiles" do
     belongs_to :user, User
     belongs_to :country, Country
-    has_many :teams, Team
+    many_to_many :teams, Team, join_through: ProfileTeam
 
     timestamps()
+  end
+
+  def changeset(attrs) do
+    %__MODULE__{}
+    |> cast(attrs, @required_params)
+    |> validate_required(@required_params)
+    |> unique_constraint(@required_params)
   end
 
 end

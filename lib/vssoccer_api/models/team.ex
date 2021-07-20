@@ -6,7 +6,7 @@ defmodule VssoccerApi.Models.Team do
 
   import Ecto.Changeset
 
-  alias VssoccerApi.Models.Profile
+  alias VssoccerApi.Models.{Profile, ProfileTeam}
 
   @required_params [:api_id, :name]
 
@@ -17,7 +17,7 @@ defmodule VssoccerApi.Models.Team do
     api_id: integer,
     name: String.t(),
     logo: String.t() | nil,
-    profile: [Profile.t()] | %Ecto.Association.NotLoaded{}
+    profiles: [Profile.t()] | %Ecto.Association.NotLoaded{}
   }
 
   schema "teams" do
@@ -25,7 +25,7 @@ defmodule VssoccerApi.Models.Team do
     field :name, :string
     field :logo, :string
 
-    belongs_to :profile, Profile, define_field: :false
+    many_to_many :profiles, Profile, join_through: ProfileTeam
   end
 
   def changeset(attrs) do
