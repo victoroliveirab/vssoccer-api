@@ -15,6 +15,7 @@ defmodule VssoccerApiWeb.Router do
     resources "/competitions", CompetitionController, only: [:index, :show]
     resources "/teams", TeamController, only: [:index, :show]
     resources "/profiles", ProfileController, only: [:create, :show]
+    resources "/matches", MatchController, only: [:index, :show]
 
     patch "/profiles/:profile_id/teams/:team_id", ProfileController, :profile_team
   end
