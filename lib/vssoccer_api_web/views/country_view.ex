@@ -3,10 +3,10 @@ defmodule VssoccerApiWeb.CountryView do
   alias VssoccerApiWeb.CountryView
 
   def render("index.json", %{countries: countries}) do
-    %{data: render_many(countries, CountryView, "show.json")}
+    render_many(countries, CountryView, "show.json")
   end
 
   def render("show.json", %{country: country}) do
-    %{data: country}
+    country
   end
 end

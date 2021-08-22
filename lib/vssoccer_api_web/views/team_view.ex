@@ -3,10 +3,10 @@ defmodule VssoccerApiWeb.TeamView do
   alias VssoccerApiWeb.TeamView
 
   def render("index.json", %{teams: teams}) do
-    %{data: render_many(teams, TeamView, "show.json")}
+    render_many(teams, TeamView, "show.json")
   end
 
   def render("show.json", %{team: team}) do
-    %{data: team}
+    team
   end
 end

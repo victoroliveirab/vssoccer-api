@@ -2,8 +2,12 @@ defmodule VssoccerApiWeb.UserView do
   use VssoccerApiWeb, :view
   alias VssoccerApiWeb.UserView
 
+  def render("show.json", %{user: user, profile: profile}) do
+    %{user: render_one(user, UserView, "user.json"), profile: profile}
+  end
+
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+    %{user: user}
   end
 
   def render("user.json", %{user: user}) do

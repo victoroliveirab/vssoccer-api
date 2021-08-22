@@ -7,6 +7,6 @@ defmodule VssoccerApiWeb.ProfileView do
   end
 
   def render("show.json", %{profile: profile}) do
-    %{data: profile}
+    profile
   end
 end
