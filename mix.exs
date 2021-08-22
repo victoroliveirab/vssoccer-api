@@ -46,6 +46,7 @@ defmodule VssoccerApi.MixProject do
       {:argon2_elixir, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:cors_plug, "~> 2.0"},
     ]
   end
 
