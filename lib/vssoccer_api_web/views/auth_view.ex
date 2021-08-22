@@ -12,4 +12,8 @@ defmodule VssoccerApiWeb.AuthView do
   def render("logged_in.json", _assigns) do
     %{errors: %{detail: "You are already logged in"}}
   end
+
+  def render("invalid_login.json", _assigns) do
+    %{errors: %{detail: "Wrong username and/or password"}}
+  end
 end

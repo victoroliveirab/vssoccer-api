@@ -21,7 +21,7 @@ defmodule VssoccerApiWeb.SessionController do
         token = Token.sign(%{"session_id" => session_id})
         render(conn, "info.json", %{info: token})
       {:error, _message} ->
-        error(conn, :unauthorized, 401)
+        error(conn, :invalid_credentials, 400)
     end
   end
 end

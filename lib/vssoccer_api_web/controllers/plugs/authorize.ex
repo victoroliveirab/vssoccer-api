@@ -63,6 +63,13 @@ defmodule VssoccerApiWeb.Authorize do
     end
   end
 
+  def error(conn, :invalid_credentials, _code) do
+    put_status(conn, :bad_request)
+    |> put_view(VssoccerApiWeb.AuthView)
+    |> render("invalid_login.json", [])
+    |> halt()
+  end
+
   def error(conn, status, code) do
     put_status(conn, status)
     |> put_view(VssoccerApiWeb.AuthView)
