@@ -8,7 +8,7 @@ defmodule VssoccerApiWeb.Match do
 
   def valid_filters(%Plug.Conn{params: params} = conn, opts) do
     filters = Enum.filter(params, fn ({key, _}) -> Enum.member?(opts, key) end)
-    if length(filters) > 0 do
+    if length(filters) > 0 and "date" in Map.keys(params) do
       assign(conn, :filters, filters)
     else
       error(conn, :bad_request, 400)
