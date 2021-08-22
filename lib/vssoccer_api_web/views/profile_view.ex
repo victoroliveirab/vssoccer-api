@@ -9,4 +9,8 @@ defmodule VssoccerApiWeb.ProfileView do
   def render("show.json", %{profile: profile}) do
     profile
   end
+
+  def render("show_simplified.json", %{profile: profile}) do
+    %{id: profile.id}
+  end
 end

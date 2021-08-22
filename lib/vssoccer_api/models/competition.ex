@@ -6,7 +6,7 @@ defmodule VssoccerApi.Models.Competition do
 
   import Ecto.Changeset
 
-  alias VssoccerApi.Models.Country
+  alias VssoccerApi.Models.{Country, Profile, ProfileCompetition}
 
   @required_params [:api_id, :name, :country_id]
 
@@ -18,7 +18,8 @@ defmodule VssoccerApi.Models.Competition do
     name: String.t(),
     logo: String.t() | nil,
     country_id: integer,
-    country: Country.t() | %Ecto.Association.NotLoaded{}
+    country: Country.t() | %Ecto.Association.NotLoaded{},
+    profiles: [Profile.t()] | %Ecto.Association.NotLoaded{}
   }
 
   schema "competitions" do
@@ -27,6 +28,7 @@ defmodule VssoccerApi.Models.Competition do
     field :logo, :string
 
     belongs_to :country, Country
+    many_to_many :profiles, Profile, join_through: ProfileCompetition
   end
 
   def changeset(attrs) do

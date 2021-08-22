@@ -6,16 +6,17 @@ defmodule VssoccerApi.Models.Profile do
 
   import Ecto.Changeset
 
-  alias VssoccerApi.Models.{Country, ProfileTeam, Team, User}
+  alias VssoccerApi.Models.{Competition, Country, ProfileCompetition, ProfileTeam, Team, User}
 
   @required_params [:user_id, :country_id]
 
-  @derive {Jason.Encoder, only: [:id, :teams | @required_params]}
+  @derive {Jason.Encoder, only: [:id, :competitions, :teams | @required_params]}
 
   @type t :: %__MODULE__{
     id: integer,
     user_id: integer,
     user: User.t() | %Ecto.Association.NotLoaded{},
+    competitions: [Competition.t()] | %Ecto.Association.NotLoaded{},
     country_id: integer,
     country: Country.t() | %Ecto.Association.NotLoaded{},
     teams: [Team.t()] | %Ecto.Association.NotLoaded{},
@@ -27,6 +28,7 @@ defmodule VssoccerApi.Models.Profile do
     belongs_to :user, User
     belongs_to :country, Country
     many_to_many :teams, Team, join_through: ProfileTeam
+    many_to_many :competitions, Competition, join_through: ProfileCompetition
 
     timestamps()
   end
