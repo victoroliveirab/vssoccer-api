@@ -38,8 +38,16 @@ defmodule VssoccerApi.Actions.Matches do
     from(m in query, where: m.match_time >= ^date_time)
   end
 
-  defp query_by(query, {key, value}) do
-    atom_key = String.to_atom(key)
-    from(p in query, where: field(p, ^atom_key) == ^value)
+  defp query_by(query, {"team_id", teams_ids}) when is_list(teams_ids) do
+    from(p in query, where: field(p, :home_team_id) in ^teams_ids or field(p, :away_team_id) in ^teams_ids)
   end
+
+  defp query_by(query, {"team_id", team_id}), do: query_by(query, {"team_id", [team_id]})
+
+  defp query_by(query, {key, values}) when is_list(values) do
+    atom_key = String.to_atom(key)
+    from(p in query, where: field(p, ^atom_key) in ^values)
+  end
+
+  defp query_by(query, {key, value}), do: query_by(query, {key, [value]})
 end

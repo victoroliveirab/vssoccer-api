@@ -10,6 +10,6 @@ defmodule VssoccerApiWeb.MatchView do
   end
 
   def render("400.json", _) do
-    %{errors: %{detail: "You need to pass at least one valid filter to view this resource"}}
+    %{errors: %{detail: "Invalid filters"}}
   end
 end

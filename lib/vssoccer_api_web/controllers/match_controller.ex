@@ -9,7 +9,7 @@ defmodule VssoccerApiWeb.MatchController do
 
   # the following plug is defined in the controllers/authorize.ex file
   plug :logged_check when action in [:index, :show]
-  plug :valid_filters, ~w(date competition_id) when action in [:index]
+  plug :valid_filters, ~w(date competition_id team_id) when action in [:index]
 
   def index(%Plug.Conn{assigns: %{filters: filters}} = conn, _params) do
     matches = Matches.list_matches(filters)
