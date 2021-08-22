@@ -25,6 +25,12 @@ defmodule VssoccerApi.Actions.Profiles do
   @spec get_profile(integer) :: Profile.t() | nil
   def get_profile(id), do: Profile |> preload(:teams) |> Repo.get(id)
 
+  def get_profile_by_user(user_id) do
+    Profile
+    |> preload(:teams)
+    |> Repo.get_by(user_id: user_id)
+  end
+
   defp handle_insert({:ok, %Profile{}} = result), do: result
   defp handle_insert({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 
